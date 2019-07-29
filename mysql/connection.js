@@ -13,11 +13,19 @@ const connection  = mysql.createConnection({
 const databasase = {
 
     insert : (arr) => {
-            let sql = "INSERT INTO color_tags (rule, color) VALUES (?, ?)";
+            let sql = "INSERT INTO color_tags (rule, color, subdomain) VALUES (?, ?, ?)";
             connection.query(sql, arr, (err, res) =>{
                 if (err) console.log(err);
             })
     },
 
+    get: (responce) => {
+        let sql = "SELECT * FROM color_tags";
+        connection.query(sql, (err, res)=>{
+            responce.send(res);
+        })
+    }
 
-}
+};
+
+module.exports = databasase;

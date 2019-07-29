@@ -9,8 +9,12 @@
   "author": "aagadullin",
   "license": "ISC",
   "dependencies": {
+    "amocrm-api": "^1.3.1",
+    "amocrm-js": "^1.0.17",
     "express": "^4.17.1",
-    "mysql2": "^1.6.5"
+    "https": "^1.0.0",
+    "mysql2": "^1.6.5",
+    "request": "^2.88.0"
   },
   "devDependencies": {
     "nodemon": "^1.19.1"

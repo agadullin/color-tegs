@@ -2,8 +2,10 @@ const express = require('express'),
     auth = require('./auth.js'),
     AMOCRM = require('amocrm-api'),
     https = require("https"),
+    amocrm = require("./amocrm.js"),
     app = express(),
     request = require("request"),
+    parse = require("./parse.js"),
     database = require('./mysql/connection.js');
 
 
@@ -35,19 +37,22 @@ app.use("/get", (req, res)=>{
 
 app.listen('2000');
 
+var tags = [];
+var rule = [];
 
-auth.auth("aagadullin@team.amocrm.com", "df2a6d53d14bc8c187bcab95e7aea5bba5f0e92b", "aagadullin").then(onfulfilled => {
-    request("https://aagadullin.amocrm.ru/api/v2/tags",{
-        method:"GET",
-        headers:{
-            'Content-Type': 'application/json',
-            'Cookie': onfulfilled.cookieForAmocrm
-        }
-    }, (req, res) =>{
-          let x = JSON.parse(res.body);
-          console.log(x.response);
-    })
-}).then(
+amocrm.auth("aagadullin@team.amocrm.com", "df2a6d53d14bc8c187bcab95e7aea5bba5f0e92b", "aagadullin")
+    .then(results =>{
+        amocrm.getTags(results.cookieForAmocrm)
+            .then(result=>{
+        tags = result.response['tags'];
+        database.get()
+            .then(results => {
+                rule = results;
+                parse.parse(tags, rule)
+                    .then((results) =>{
+                        console.log(results);
+                    })
+            })
+    })});
 
-);
 

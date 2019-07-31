@@ -28,4 +28,16 @@ const databasase = {
 
 };
 
-module.exports = databasase;
+const base = {
+
+    get: () => {
+        return new Promise((resolve, reject) => {
+            let sql = "SELECT * FROM color_tags";
+            connection.query(sql, (err, res) =>{
+               resolve(res);
+            })
+        })
+    }
+}
+
+module.exports = base;

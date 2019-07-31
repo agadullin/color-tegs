@@ -13,7 +13,7 @@ module.exports = {
               }
               },(req, res) =>{
               let parse = JSON.parse(res.body);
-              return resolve(parse)
+              resolve(parse)
               }
 
           )
@@ -48,10 +48,10 @@ module.exports = {
 
                     if (res.statusCode === 200) {
                         cookieAmocrm = res.headers['set-cookie'];
-                        return resolve({responseObj:responseObj,
+                         resolve({responseObj:responseObj,
                             cookieForAmocrm: cookieAmocrm});
                     } else {
-                        return reject(responseObj);
+                         reject(responseObj);
                     }
                 })
             });

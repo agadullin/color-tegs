@@ -37,7 +37,15 @@ const base = {
                resolve(res);
             })
         })
-    }
-}
+    },
+
+    insert : (arr) => {
+        let sql = "INSERT INTO color_tags (rule, color, subdomain) VALUES (?, ?, ?)";
+        connection.query(sql, arr, (err, res) =>{
+            if (err) console.log(err);
+        })
+    },
+
+};
 
 module.exports = base;

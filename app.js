@@ -1,10 +1,6 @@
 const express = require('express'),
-    auth = require('./auth.js'),
-    AMOCRM = require('amocrm-api'),
-    https = require("https"),
     amocrm = require("./amocrm.js"),
     app = express(),
-    request = require("request"),
     parse = require("./parse.js"),
     database = require('./mysql/connection.js');
 
@@ -25,9 +21,8 @@ app.use("/add", (req, res) => {
     let arr = [];
     for (key in req.body){
         arr.push(req.body[key])
-    };
+    }
     database.insert(arr);
-    res.send("done");
 });
 
 app.use("/get", (req, res)=>{

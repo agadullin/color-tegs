@@ -9,10 +9,10 @@ module.exports = {
                     if (tags[k]['name'] === rule[i]["rule"]) {
                         let tagsId = tags[k]["id"];
                         let colorRule = rule[i]["color"];
-                        arrFullRule[i] = {"rule" :{
+                        arrFullRule[i] = {
                                 "id" : tagsId,
                                 "color" : colorRule
-                            }};
+                            };
                     }
                 }
 

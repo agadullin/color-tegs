@@ -30,6 +30,14 @@ const databasase = {
 
 const base = {
 
+    connect: (arr) => {
+      let sql = "INSERT INTO users (id, login, api_key, subdomain) VALUES (?, ?, ? ,?)";
+      connection.query(sql, arr, (err, res) => {
+          console.log(err);
+          console.log("doneConnect");
+      })
+    },
+
     get: () => {
         return new Promise((resolve, reject) => {
             let sql = "SELECT * FROM color_tags";

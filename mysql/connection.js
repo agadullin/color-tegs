@@ -10,7 +10,7 @@ const connection  = mysql.createConnection({
             insecureAuth: true
         });
 
-const databasase = {
+/*const databasase = {
 
     insert : (arr) => {
             let sql = "INSERT INTO color_tags (rule, color, subdomain) VALUES (?, ?, ?)";
@@ -26,28 +26,35 @@ const databasase = {
         })
     }
 
-};
+};*/
 
 const base = {
 
-    connect: (arr) => {
-      let sql = "INSERT INTO users (id, login, api_key, subdomain) VALUES (?, ?, ? ,?)";
-      connection.query(sql, arr, (err, res) => {
-          console.log(err);
-          console.log("doneConnect");
-      })
+    insertAccount: (arr) => {
+        return new Promise((resolve, reject) => {
+            let sql = "INSERT INTO users (account_id, login, api_key, subdomain) VALUES (?, ?, ? ,?)";
+            connection.query(sql, arr, (err, res) => {
+                if (err){
+                    console.log(err);
+                }
+                resolve(res);
+            })
+        })
     },
 
-    get: () => {
+    get: (table_name) => {
         return new Promise((resolve, reject) => {
-            let sql = "SELECT * FROM color_tags";
+            let sql = "SELECT * FROM " + table_name;
             connection.query(sql, (err, res) =>{
+                if (err){
+                    console.log(err);
+                }
                resolve(res);
             })
         })
     },
 
-    insert : (arr) => {
+    insertRule : (arr) => {
         let sql = "INSERT INTO color_tags (rule, color, subdomain) VALUES (?, ?, ?)";
         connection.query(sql, arr, (err, res) =>{
             if (err) console.log(err);

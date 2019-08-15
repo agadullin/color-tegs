@@ -22,7 +22,19 @@ app.use("/connect", (req,res)=>{
     for (key in req.body){
         arr.push(req.body[key])
     }
-    database.connect(arr);
+    database.get("users").then(result =>{
+        if (result.length === 0) {
+            database.insertAccount(arr);
+        } else {
+            for (let i = 0; i < result.length; i++){
+                for (let key in result[i]){
+                    if (key === "account_id" && result[i][key] !== arr[0]) {
+                        database.insertAccount(arr);
+                    }
+                }
+            }
+        }
+    })
 });
 
 
@@ -41,7 +53,7 @@ app.use("/add", (req, res) => {
             for (key in req.body){
                 arr.push(req.body[key])
             }
-            database.insert(arr)
+            database.insertRule(arr)
         }
     })
 });
@@ -70,7 +82,7 @@ app.listen('2000');
 var tags = [];
 var rule = [];
 
-amocrm.auth("aagadullin@team.amocrm.com", "df2a6d53d14bc8c187bcab95e7aea5bba5f0e92b", "aagadullin")
+/*amocrm.auth("aagadullin@team.amocrm.com", "df2a6d53d14bc8c187bcab95e7aea5bba5f0e92b", "aagadullin")
     .then(results =>{
         amocrm.getTags(results.cookieForAmocrm)
             .then(result=>{
@@ -83,6 +95,7 @@ amocrm.auth("aagadullin@team.amocrm.com", "df2a6d53d14bc8c187bcab95e7aea5bba5f0e
                         console.log(results);
                     })
             })
-    })});
+            })
+    });*/
 
 

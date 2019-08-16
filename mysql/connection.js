@@ -1,4 +1,5 @@
-const mysql = require('mysql2');
+const mysql = require('mysql2'),
+      iconv = require('iconv-lite');
 
 
 
@@ -7,7 +8,8 @@ const connection  = mysql.createConnection({
             user: "amocrm",
             database: "COLOR_TAGS",
             password: "Anna!999",
-            insecureAuth: true
+            insecureAuth: true,
+            charset: 'utf8'
         });
 
 /*const databasase = {
@@ -55,7 +57,7 @@ const base = {
     },
 
     insertRule : (arr) => {
-        let sql = "INSERT INTO color_tags (rule, color, subdomain) VALUES (?, ?, ?)";
+        let sql = "INSERT INTO color_tags (rule, color) VALUES (?, ?)";
         connection.query(sql, arr, (err, res) =>{
             if (err) console.log(err);
         })

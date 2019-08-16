@@ -39,7 +39,7 @@ app.use("/connect", (req,res)=>{
 
 
 app.use("/add", (req, res) => {
-    database.get().then((result)=>{
+    database.get("color_tags").then((result)=>{
         let arr = [];
         let arrRule = [];
         for (let i = 0; i < result.length; i++) {

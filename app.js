@@ -14,6 +14,9 @@ app.use("/", (req, res, next)=>{
     next();
 });
 
+var tags = [];
+var rule = [];
+
 app.use(express.urlencoded());
 app.use(express.json());
 
@@ -59,13 +62,13 @@ app.use("/add", (req, res) => {
 });
 
 app.use("/get", (req, res)=>{
-    //database.get(res);
-    amocrm.auth("aagadullin@team.amocrm.com", "df2a6d53d14bc8c187bcab95e7aea5bba5f0e92b", "aagadullin")
+    console.log(req.body);
+    amocrm.auth(req.body.login, req.body.api_key, req.body.subdomain)
         .then(results =>{
             amocrm.getTags(results.cookieForAmocrm)
                 .then(result=>{
                     tags = result.response['tags'];
-                    database.get()
+                    database.get("color_tags")
                         .then(results => {
                             rule = results;
                             parse.parse(tags, rule)
@@ -73,14 +76,19 @@ app.use("/get", (req, res)=>{
                                     res.send(results);
                                 })
                         })
-                })});
+                })
+        });
 });
 
+app.use("/getrule", (req, res)=> {
+  database.get('color_tags').then(resolve =>{
+      res.send(resolve);
+  })
+});
 
 app.listen('2000');
 
-var tags = [];
-var rule = [];
+
 
 /*amocrm.auth("aagadullin@team.amocrm.com", "df2a6d53d14bc8c187bcab95e7aea5bba5f0e92b", "aagadullin")
     .then(results =>{

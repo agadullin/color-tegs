@@ -1,6 +1,4 @@
-const mysql = require('mysql2'),
-      iconv = require('iconv-lite');
-
+const mysql = require('mysql2');
 
 
 const connection  = mysql.createConnection({
@@ -11,24 +9,6 @@ const connection  = mysql.createConnection({
             insecureAuth: true,
             charset: 'utf8'
         });
-
-/*const databasase = {
-
-    insert : (arr) => {
-            let sql = "INSERT INTO color_tags (rule, color, subdomain) VALUES (?, ?, ?)";
-            connection.query(sql, arr, (err, res) =>{
-                if (err) console.log(err);
-            })
-    },
-
-    get: (responce) => {
-        let sql = "SELECT * FROM color_tags";
-        connection.query(sql, (err, res)=>{
-            responce.send(res);
-        })
-    }
-
-};*/
 
 const base = {
 

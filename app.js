@@ -58,6 +58,9 @@ app.use("/add", (req, res) => {
             }
             database.insertRule(arr)
         }
+        database.get("color_tags").then((result)=>{
+            res.send(result);
+        })
     })
 });
 
@@ -86,24 +89,17 @@ app.use("/getrule", (req, res)=> {
   })
 });
 
+app.use('/delete', (req, res)=> {
+    database.delete(req.body.rule).then(result=>{
+            database.get("color_tags").then(result=>{
+                res.send(result);
+            })
+    })
+});
+
 app.listen('2000');
 
 
 
-/*amocrm.auth("aagadullin@team.amocrm.com", "df2a6d53d14bc8c187bcab95e7aea5bba5f0e92b", "aagadullin")
-    .then(results =>{
-        amocrm.getTags(results.cookieForAmocrm)
-            .then(result=>{
-        tags = result.response['tags'];
-        database.get()
-            .then(results => {
-                rule = results;
-                parse.parse(tags, rule)
-                    .then((results) =>{
-                        console.log(results);
-                    })
-            })
-            })
-    });*/
 
 

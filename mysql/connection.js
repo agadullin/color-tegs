@@ -43,6 +43,16 @@ const base = {
         })
     },
 
+    delete: (rule) => {
+        return new Promise((resolve, reject) => {
+            let sql = "DELETE FROM color_tags WHERE rule=?";
+            connection.query(sql, rule, (err, data) => {
+                if (err) {console.log(err)}
+            resolve(data);
+            });
+        })
+    }
+
 };
 
 module.exports = base;
